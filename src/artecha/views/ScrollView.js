@@ -8,26 +8,26 @@
 define(function(require, exports, module) {
     'use strict';
 
-    var PhysicsEngine = require('../physics/PhysicsEngine');
-    var Particle = require('../physics/bodies/Particle');
-    var Drag = require('../physics/forces/Drag');
-    var Spring = require('../physics/forces/Spring');
-    var Group = require('../core/Group');
-    var Entity = require('../core/Entity');
-    var Transform = require('../core/Transform');
-    var Engine = require('../core/Engine');
-    var Vector = require('../math/Vector');
+    var PhysicsEngine = require('../../physics/PhysicsEngine');
+    var Particle = require('../../physics/bodies/Particle');
+    var Drag = require('../../physics/forces/Drag');
+    var Spring = require('../../physics/forces/Spring');
+    var Group = require('../../core/Group');
+    var Entity = require('../../core/Entity');
+    var Transform = require('../../core/Transform');
+    var Engine = require('../../core/Engine');
+    var Vector = require('../../math/Vector');
 
-    var EventHandler = require('../core/EventHandler');
-    var OptionsManager = require('../core/OptionsManager');
-    var ViewSequence = require('../core/ViewSequence');
+    var EventHandler = require('../../core/EventHandler');
+    var OptionsManager = require('../../core/OptionsManager');
+    var ViewSequence = require('../../core/ViewSequence');
     var FocusScrollLayout = require('./FocusScrollLayout');
-    var Utility = require('../utilities/Utility');
+    var Utility = require('../../utilities/Utility');
     var ScrollEdgeStates = require('./ScrollEdgeStates');
 
-    var GenericSync = require('../inputs/GenericSync');
-    var ScrollSync = require('../inputs/ScrollSync');
-    var TouchSync = require('../inputs/TouchSync');
+    var GenericSync = require('../../inputs/GenericSync');
+    var ScrollSync = require('../../inputs/ScrollSync');
+    var TouchSync = require('../../inputs/TouchSync');
     GenericSync.register({scroll: ScrollSync, touch: TouchSync});
 
     function ScrollView(options, layout) {
