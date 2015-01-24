@@ -118,6 +118,10 @@ define(function(require, exports, module) {
             this.drag.options.strength = this.options.drag;
             this.friction.options.strength = this.options.friction;
         }
+
+        if (this._layout) {
+            this._layout._eventInput.emit('onstart', evet);
+        }
     }
 
     function _handleMove(event) {
@@ -181,6 +185,10 @@ define(function(require, exports, module) {
 
         console.log('$NORMALIZE_MOVE');
         _normalizeState.call(this, true);
+
+       if (this._layout) {
+            this._layout._eventInput.emit('onmove', evet);
+        }
     }
 
     function _handleEnd(event) {
@@ -220,6 +228,10 @@ define(function(require, exports, module) {
         this._touchVelocity = null;
         _setVelocity.call(this, velocity);
         this._touchMove = false;
+
+        if (this._layout) {
+            this._layout._eventInput.emit('onend', evet);
+        }
     }
 
     function _bindEvents() {
@@ -490,7 +502,6 @@ define(function(require, exports, module) {
         else options.direction = Utility.Direction.Y;
 
         options.layout.direction = options.direction;
-        options.layout.view = this;
 
         // patch custom options
         this._optionsManager.setOptions(options);

@@ -20,16 +20,6 @@ define(function(require, exports, module) {
         this._optionsManager = new OptionsManager(this.options);
         if (options) this._optionsManager.setOptions(options);
 
-        if (this.options.view) {
-            this.options.view._eventInput.on('start', function() {
-                this.velocitySwitch = false;
-                this._touchMove = true;
-            }.bind(this));
-            this.options.view._eventInput.on('end', function() {
-                this._touchMove = false;
-            }.bind(this));
-        }
-
         this.currFocus = {};
         this._contextSize = [undefined, undefined];
 
@@ -38,6 +28,14 @@ define(function(require, exports, module) {
 
         EventHandler.setInputHandler(this, this._eventInput);
         EventHandler.setOutputHandler(this, this._eventOutput);
+
+        this._eventInput.on('onstart', function() {
+            this.velocitySwitch = false;
+            this._touchMove = true;
+        }.bind(this));
+        this._eventInput.on('onend', function() {
+            this._touchMove = false;
+        }.bind(this));
     }
 
     FocusPagedLayout.DEFAULT_OPTIONS = {
