@@ -516,12 +516,10 @@ define(function(require, exports, module) {
         if (options.friction !== undefined && this.friction) this.friction.setOptions({strength: this.options.friction});
 
         // sync sub-component
-        if ((options.rails !== undefined || options.direction !== undefined || options.syncScale !== undefined) && this.sync) {
-            this.sync.setOptions({
-                direction: this.options.direction,
-                scale: this.options.syncScale,
-                rails: this.options.rails
-            });
+        if (this.sync) {
+            if (options.rails !== undefined) this.sync.setOptions({rails: options.rails});
+            if (options.direction !== undefined) this.sync.setOptions({direction: options.direction});
+            if (options.syncScale !== undefined) this.sync.setOptions({scale: options.scale});
         }
     };
 
