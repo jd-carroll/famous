@@ -54,7 +54,9 @@ define(function(require, exports, module) {
             }
         );
 
-        this._physicsEngine = new PhysicsEngine();
+        this._physicsEngine = new PhysicsEngine({
+            robust: true
+        });
         this._particle = new Particle();
         this._physicsEngine.addBody(this._particle);
 
@@ -120,7 +122,7 @@ define(function(require, exports, module) {
         }
 
         if (this._layout) {
-            this._layout._eventInput.emit('onstart', evet);
+            this._layout._eventInput.emit('onstart', event);
         }
     }
 
@@ -187,7 +189,7 @@ define(function(require, exports, module) {
         _normalizeState.call(this, true);
 
        if (this._layout) {
-            this._layout._eventInput.emit('onmove', evet);
+            this._layout._eventInput.emit('onmove', event);
         }
     }
 
@@ -230,7 +232,7 @@ define(function(require, exports, module) {
         this._touchMove = false;
 
         if (this._layout) {
-            this._layout._eventInput.emit('onend', evet);
+            this._layout._eventInput.emit('onend', event);
         }
     }
 
