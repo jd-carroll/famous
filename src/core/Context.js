@@ -44,7 +44,7 @@ define(function(require, exports, module) {
 
         this._node = new RenderNode();
         this._eventOutput = new EventHandler();
-        this._size = _getElementSize(this.container);
+        this._size = _getElementSize.call(this);
 
         this._perspectiveState = new Transitionable(0);
         this._perspective = undefined;
