@@ -18,7 +18,7 @@ define(function(require, exports, module) {
     var usePrefix = !('perspective' in document.documentElement.style);
 
     function _getElementSize() {
-        var element = this.element;
+        var element = this.container;
         return [element.clientWidth, element.clientHeight];
     }
 
