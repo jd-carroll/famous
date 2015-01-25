@@ -49,8 +49,8 @@ define(function(require, exports, module) {
         this.sync = new GenericSync(
             this.options.syncs,
             {
-                // direction : this.options.direction,
-                // rails: this.options.rails
+                direction : this.options.direction,
+                rails: this.options.rails
             }
         );
 
