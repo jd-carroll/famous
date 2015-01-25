@@ -47,11 +47,12 @@ define(function(require, exports, module) {
             count: event.touches.length,
             angle: this._angle,
             center: center,
-            touches: [this.touchAId, this.touchBId]
+            touches: [this.touchAId, this.touchBId],
+            target: event.$source
         });
     };
 
-    RotateSync.prototype._moveUpdate = function _moveUpdate(diffTime) {
+    RotateSync.prototype._moveUpdate = function _moveUpdate(diffTime, event) {
         var scale = this.options.scale;
 
         var currAngle = TwoFingerSync.calculateAngle(this.posA, this.posB);
@@ -67,7 +68,8 @@ define(function(require, exports, module) {
             velocity: velTheta,
             angle: this._angle,
             center: center,
-            touches: [this.touchAId, this.touchBId]
+            touches: [this.touchAId, this.touchBId],
+            target: event.$source
         });
 
         this._previousAngle = currAngle;

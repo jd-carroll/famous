@@ -73,7 +73,8 @@ define(function(require, exports, module) {
             clientX  : 0,
             clientY  : 0,
             offsetX  : 0,
-            offsetY  : 0
+            offsetY  : 0,
+            target   : null
         };
 
         this._positionHistory = [];
@@ -143,6 +144,7 @@ define(function(require, exports, module) {
         payload.clientY = y;
         payload.offsetX = event.offsetX;
         payload.offsetY = event.offsetY;
+        payload.target = event.$source;
 
         this._positionHistory.push({
             position: payload.position.slice ? payload.position.slice(0) : payload.position,
@@ -217,6 +219,7 @@ define(function(require, exports, module) {
         payload.clientY  = y;
         payload.offsetX  = event.offsetX;
         payload.offsetY  = event.offsetY;
+        payload.target = event.$source;
 
         if (this._positionHistory.length === this.options.velocitySampleLength) {
           this._positionHistory.shift();

@@ -53,12 +53,13 @@ define(function(require, exports, module) {
             count: event.touches.length,
             touches: [this.touchAId, this.touchBId],
             distance: this._startDist,
-            center: TwoFingerSync.calculateCenter(this.posA, this.posB)
+            center: TwoFingerSync.calculateCenter(this.posA, this.posB),
+            target: event.$source
         });
     };
 
     // handles movement of two fingers
-    ScaleSync.prototype._moveUpdate = function _moveUpdate(diffTime) {
+    ScaleSync.prototype._moveUpdate = function _moveUpdate(diffTime, event) {
         var scale = this.options.scale;
 
         var currDist = TwoFingerSync.calculateDistance(this.posA, this.posB);
@@ -74,7 +75,8 @@ define(function(require, exports, module) {
             velocity: veloScale,
             distance: currDist,
             center : center,
-            touches: [this.touchAId, this.touchBId]
+            touches: [this.touchAId, this.touchBId],
+            target: event.$source
         });
 
         this._scaleFactor = newScaleFactor;

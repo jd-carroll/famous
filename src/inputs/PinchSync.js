@@ -47,11 +47,12 @@ define(function(require, exports, module) {
             count: event.touches.length,
             touches: [this.touchAId, this.touchBId],
             distance: this._dist,
-            center: TwoFingerSync.calculateCenter(this.posA, this.posB)
+            center: TwoFingerSync.calculateCenter(this.posA, this.posB),
+            target: event.$source
         });
     };
 
-    PinchSync.prototype._moveUpdate = function _moveUpdate(diffTime) {
+    PinchSync.prototype._moveUpdate = function _moveUpdate(diffTime, event) {
         var currDist = TwoFingerSync.calculateDistance(this.posA, this.posB);
         var center = TwoFingerSync.calculateCenter(this.posA, this.posB);
 
@@ -68,7 +69,8 @@ define(function(require, exports, module) {
             distance: currDist,
             displacement: this._displacement,
             center: center,
-            touches: [this.touchAId, this.touchBId]
+            touches: [this.touchAId, this.touchBId],
+            target: event.$source
         });
     };
 

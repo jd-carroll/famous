@@ -63,7 +63,8 @@ define(function(require, exports, module) {
             clientX  : undefined,
             clientY  : undefined,
             count    : 0,
-            touch    : undefined
+            touch    : undefined,
+            target   : null
         };
 
         this._position = null; // to be deprecated
@@ -109,6 +110,7 @@ define(function(require, exports, module) {
         payload.clientY = data.y;
         payload.count = data.count;
         payload.touch = data.identifier;
+        payload.target = data.target;
 
         this._eventOutput.emit('start', payload);
     }
@@ -179,6 +181,7 @@ define(function(require, exports, module) {
         payload.clientY  = data.y;
         payload.count    = data.count;
         payload.touch    = data.identifier;
+        payload.target   = data.target;
 
         this._eventOutput.emit('update', payload);
     }

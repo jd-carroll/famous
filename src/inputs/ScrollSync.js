@@ -40,7 +40,8 @@ define(function(require, exports, module) {
             delta    : null,
             position : null,
             velocity : null,
-            slip     : true
+            slip     : true,
+            target   : null
         };
 
         this._eventInput = new EventHandler();
@@ -95,16 +96,18 @@ define(function(require, exports, module) {
     function _handleMove(event) {
         if (this.options.preventDefault) event.preventDefault();
 
+        var payload = this._payload;
+
         if (!this._inProgress) {
             this._inProgress = true;
             this._position = (this.options.direction === undefined) ? [0,0] : 0;
-            payload = this._payload;
             payload.slip = true;
             payload.position = this._position;
             payload.clientX = event.clientX;
             payload.clientY = event.clientY;
             payload.offsetX = event.offsetX;
             payload.offsetY = event.offsetY;
+            payload.target = event.$source;
             this._eventOutput.emit('start', payload);
             if (!this._loopBound) {
                 Engine.on('prerender', _newFrame.bind(this));
@@ -154,11 +157,11 @@ define(function(require, exports, module) {
             this._position[1] += nextDelta[1];
         }
 
-        var payload = this._payload;
         payload.delta    = nextDelta;
         payload.velocity = nextVel;
         payload.position = this._position;
         payload.slip     = true;
+        payload.target = event.$source;
 
         this._eventOutput.emit('update', payload);
 
