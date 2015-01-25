@@ -68,10 +68,21 @@ define(function(require, exports, module) {
         set(id, null);
     }
 
+    /**
+     * Clears all registered entities from global index
+     *
+     * @private
+     * @method clear
+     */
+    function clear() {
+        entities = [];
+    }
+
     module.exports = {
         register: register,
         unregister: unregister,
         get: get,
-        set: set
+        set: set,
+        clear: clear
     };
 });
