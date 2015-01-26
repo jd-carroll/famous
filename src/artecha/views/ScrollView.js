@@ -49,7 +49,7 @@ define(function(require, exports, module) {
         this.sync = new GenericSync(
             this.options.syncs,
             {
-                direction : this.options.direction,
+                // direction : this.options.direction,
                 rails: this.options.rails
             }
         );
@@ -518,7 +518,7 @@ define(function(require, exports, module) {
         // sync sub-component
         if (this.sync) {
             if (options.rails !== undefined) this.sync.setOptions({rails: options.rails});
-            if (options.direction !== undefined) this.sync.setOptions({direction: options.direction});
+            // if (options.direction !== undefined) this.sync.setOptions({direction: options.direction});
             if (options.syncScale !== undefined) this.sync.setOptions({scale: options.scale});
         }
     };
