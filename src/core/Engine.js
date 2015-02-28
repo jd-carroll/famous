@@ -4,7 +4,7 @@
  *
  * Owner: mark@famo.us
  * @license MPL 2.0
- * @copyright Famous Industries, Inc. 2014
+ * @copyright Famous Industries, Inc. 2015
  */
 
 define(function(require, exports, module) {
@@ -145,6 +145,17 @@ define(function(require, exports, module) {
         window.addEventListener('touchmove', function(event) {
             event.preventDefault();
         }, true);
+
+        addRootClasses();
+    }
+    var initialized = false;
+
+    function addRootClasses() {
+        if (!document.body) {
+            Engine.nextTick(addRootClasses);
+            return;
+        }
+
         document.body.classList.add('famous-root');
         document.documentElement.classList.add('famous-root');
     }
@@ -190,17 +201,20 @@ define(function(require, exports, module) {
     Engine.on = function on(type, handler) {
         if (!(type in eventForwarders)) {
             eventForwarders[type] = eventHandler.emit.bind(eventHandler, type);
-            if (document.body) {
-                document.body.addEventListener(type, eventForwarders[type]);
-            }
-            else {
-                Engine.nextTick(function(type, forwarder) {
-                    document.body.addEventListener(type, forwarder);
-                }.bind(this, type, eventForwarders[type]));
-            }
+
+            addEngineListener(type, eventForwarders[type]);
         }
         return eventHandler.on(type, handler);
     };
+
+    function addEngineListener(type, forwarder) {
+        if (!document.body) {
+            Engine.nextTick(addEventListener.bind(this, type, forwarder));
+            return;
+        }
+
+        document.body.addEventListener(type, forwarder);
+    }
 
     /**
      * Trigger an event, sending to all downstream handlers
@@ -305,16 +319,24 @@ define(function(require, exports, module) {
             el.classList.add(options.containerClass);
             needMountContainer = true;
         }
+
         var context = new Context(el);
         Engine.registerContext(context);
-        if (needMountContainer) {
-            Engine.nextTick(function(context, el) {
-                document.body.appendChild(el);
-                context.emit('resize');
-            }.bind(this, context, el));
-        }
+
+        if (needMountContainer) mount(context, el);
+
         return context;
     };
+
+    function mount(context, el) {
+        if (!document.body) {
+            Engine.nextTick(mount.bind(this, context, el));
+            return;
+        }
+
+        document.body.appendChild(el);
+        context.emit('resize');
+    }
 
     /**
      * Registers an existing context to be updated within the run loop.

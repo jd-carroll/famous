@@ -24,45 +24,47 @@
 
 
 /**
- * TransitionableTransform
- * --------
+ * SizeAwareView
+ * ------------------
  *
- * TransitionableTransform is a class for transitioning 
- * the state of a Transform by transitioning its translate,
- * scale, skew and rotate components independently.
+ * SizeAwareView extends the View class by adding a .getParentSize()
+ * method and emitting a 'parentResize' event whenever the parent's
+ * size changes.
  *
- * In this example, there is a surface having its scale
- * affected by a TransitionableTransform.
+ * SizeAwareView is a very useful class for building responsive
+ * layouts.
  */
 define(function(require, exports, module) {
-    var Engine                  = require("famous/core/Engine");
-    var Surface                 = require("famous/core/Surface");
-    var Modifier                = require("famous/core/Modifier");
-    var TransitionableTransform = require("famous/transitions/TransitionableTransform");
+    var Engine        = require("famous/core/Engine");
+    var Surface       = require("famous/core/Surface");
+    var SizeAwareView = require("famous/views/SizeAwareView");
 
     var mainContext = Engine.createContext();
 
+    var sizeAwareView = new SizeAwareView();
+
+    var getSurfaceContent = function () {
+        return '' +
+        'Parent size updates on window resize!' +
+        '<br>' +
+        'Parent Size: [' + sizeAwareView.getParentSize() + ']'
+    };
+
     var surface = new Surface({
-        size:[100,100],
-        content: 'Click Me',
-        classes: ['red-bg'],
+        content: getSurfaceContent(),
+        size: [400, 400],
+        classes: ["red-bg"],
         properties: {
             textAlign: 'center',
-            lineHeight: '100px'
+            paddingTop: '100px'
         }
     });
+    sizeAwareView.add(surface);
 
-    var transitionableTransform = new TransitionableTransform();
-    
-    var modifier = new Modifier({
-        align: [.5, .5],
-        origin: [.5, .5],
-        transform: transitionableTransform
+    // Update Surface's content on parent's resize
+    sizeAwareView._eventInput.on('parentResize', function (parentSize) {
+        surface.setContent(getSurfaceContent());
     });
 
-    surface.on("click", function(){
-        transitionableTransform.setScale([3,3,1], {duration: 3000});
-    });
-
-    mainContext.add(modifier).add(surface);
+    mainContext.add(sizeAwareView);
 });

@@ -1,3 +1,63 @@
+## 0.3.5
+
+### General
+
+- Update .gitignore
+- Update copyright year
+- Update linter
+- update distribution generator
+- Fix broken links to http://famo.us
+
+### Bug Fixes
+
+- Famous/core
+    - Fix container memory leak on migration
+
+- Famous/math
+    - Fix Matrix.transpose
+    - Fix Random
+    - Update Matrix.multiply documentation
+    - Fix Quaternion.slerp
+
+- Famous/views
+    - Fix caching in ImageSurface
+    - Pass parent opacity through SequentialLayout
+    - Add SizeAwareView
+
+- Famous/physics
+    - Fix Curve constraint
+
+- Famous/transitions
+    - Transitionable.delay fix
+
+## 0.3.4
+
+### Bug Fixes
+
+- Famous/inputs
+    - 0.3.3 did not fix changes to inputs.  All changes from 0.3.2 and 0.3.3 involving inputs have been reverted
+
+## 0.3.3
+
+### Bug Fixes
+
+- Famous/inputs
+    - bug in TouchSync where NaN's were produced
+
+## 0.3.2
+
+### Bug Fixes
+
+- Famous/core
+    - Fixed issue where Famo.us would break when it took more than a single frame for the browser to load the body
+
+- Famous/inputs
+    - Made sync velocities average out to stop wild spikes
+    - Fixed logic for GenericSync to always run through the syncs to register even if it hits one that wa slaready registered
+
+- Famous/views
+    - Fixed bug where SequentialLayout would not work if you gave children undefined size
+
 ## 0.3.1
 
 ### General

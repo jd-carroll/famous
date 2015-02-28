@@ -26,7 +26,7 @@ render tree.
 
 ## License
 
-Copyright (c) 2014 Famous Industries, Inc.
+Copyright (c) 2015 Famous Industries, Inc.
 
 This Source Code Form is subject to the terms of the Mozilla Public License,
 v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain
@@ -34,8 +34,8 @@ one at http://mozilla.org/MPL/2.0/.
 
 
 [reference-documentation]: http://famo.us/docs
-[animating]: http://famo.us/guides/dev/animating.html
-[render-tree]: http://famo.us/guides/dev/render-tree.html
-[layout]: http://famo.us/guides/dev/layout.html
-[pitfalls]: http://famo.us/guides/dev/pitfalls.html
+[animating]: http://famo.us/guides/animating
+[render-tree]: http://famo.us/guides/render-tree
+[layout]: http://famo.us/guides/layout
+[pitfalls]: http://famo.us/guides/pitfalls
 

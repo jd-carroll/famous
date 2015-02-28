@@ -24,7 +24,7 @@ an event interface similar to that used in NodeJS.
 
 ## License
 
-Copyright (c) 2014 Famous Industries, Inc.
+Copyright (c) 2015 Famous Industries, Inc.
 
 This Source Code Form is subject to the terms of the Mozilla Public License,
 v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain
@@ -32,6 +32,6 @@ one at http://mozilla.org/MPL/2.0/.
 
 
 [reference-documentation]: http://famo.us/docs
-[events]: http://famo.us/guides/dev/events.html
-[pitfalls]: http://famo.us/guides/dev/pitfalls.html
+[events]: http://famo.us/guides/events
+[pitfalls]: http://famo.us/guides/pitfalls
 
