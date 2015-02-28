@@ -8,10 +8,10 @@
 define(function(require, exports, module) {
     'use strict';
 
-    var OptionsManager = require('../../core/OptionsManager');
-    var Transform = require('../../core/Transform');
-    var Utility = require('../../utilities/Utility');
-    var EventHandler = require('../../core/EventHandler');
+    var OptionsManager = require('../core/OptionsManager');
+    var Transform = require('../core/Transform');
+    var Utility = require('../utilities/Utility');
+    var EventHandler = require('../core/EventHandler');
 
     var ScrollEdgeStates = require('./ScrollEdgeStates');
 
