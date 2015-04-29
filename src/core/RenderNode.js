@@ -109,7 +109,7 @@ define(function(require, exports, module) {
             var childNode = Entity.get(id);
             var commitParams = result[id];
             commitParams.allocator = context.allocator;
-            var commitResult = childNode.commit(commitParams);
+            var commitResult = childNode.commit(commitParams, context, cacheStorage);
             if (commitResult) _applyCommit(commitResult, context, cacheStorage);
             else cacheStorage[id] = commitParams;
         }

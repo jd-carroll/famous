@@ -159,7 +159,6 @@ define(function(require, exports, module) {
         document.body.classList.add('famous-root');
         document.documentElement.classList.add('famous-root');
     }
-    var initialized = false;
 
     /**
      * Add event handler object to set of downstream handlers.

@@ -101,7 +101,7 @@ define(function(require, exports, module) {
      * Options setter
      *
      * @method setOptions
-     * @param opts {Object}
+     * @param options {Object}
      */
     PhysicsEngine.prototype.setOptions = function setOptions(options) {
         // patch custom options
@@ -461,7 +461,7 @@ define(function(require, exports, module) {
             while (this._buffer > TIMESTEP) {
                 _integrate.call(this, TIMESTEP);
                 this._buffer -= TIMESTEP;
-            };
+            }
             _integrate.call(this, this._buffer);
             this._buffer = 0.0;
         }

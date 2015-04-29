@@ -43,7 +43,7 @@ define(function(require, exports, module) {
         EventHandler.setOutputHandler(this, this._eventOutput);
 
         // create sub-components
-        layout = layout || ScrollView.DEFAULT_LAYOUT;
+        layout = layout || options.layout || ScrollView.DEFAULT_LAYOUT;
         this.setLayout(layout);
 
         this.sync = new GenericSync(
@@ -112,7 +112,7 @@ define(function(require, exports, module) {
     function _handleStart(event) {
         // console.log('$START');
         this._touchMove = true;
-        console.log('$REMOVE_AGENTS - START');
+        // console.log('$REMOVE_AGENTS - START');
         _detachAgents.call(this, true, true);
         this._earlyEnd = false;
 
@@ -150,8 +150,8 @@ define(function(require, exports, module) {
             }
         }
 
-        if (window.$move)
-            console.log('Delta: ' + delta + ' Velocity: ' + velocity);
+        // if (window.$move)
+        //     console.log('Delta: ' + delta + ' Velocity: ' + velocity);
 
         if ((edgeState === ScrollEdgeStates.FIRST || edgeState === ScrollEdgeStates.LAST) && event.slip) {
             if ((velocity < 0 && edgeState === ScrollEdgeStates.FIRST) || (velocity > 0 && edgeState === ScrollEdgeStates.LAST)) {
@@ -165,7 +165,7 @@ define(function(require, exports, module) {
             }
         }
         if (this._earlyEnd) {
-            console.log('$EARLY_END');
+            // console.log('$EARLY_END');
             return;
         }
 
@@ -185,7 +185,7 @@ define(function(require, exports, module) {
         var currPos = _getPosition.call(this);
         _setPosition.call(this, currPos + delta);
 
-        console.log('$NORMALIZE_MOVE');
+        // console.log('$NORMALIZE_MOVE');
         _normalizeState.call(this, true);
 
        if (this._layout) {
@@ -224,7 +224,7 @@ define(function(require, exports, module) {
 
         var setSpring = edgeState !== ScrollEdgeStates.NONE;
         this._attachSpring = !setSpring;
-        console.log('$ATTACH_AGENTS - END Spring: ' + setSpring + ' Drag: ' + true);
+        // console.log('$ATTACH_AGENTS - END Spring: ' + setSpring + ' Drag: ' + true);
         _attachAgents.call(this, setSpring, true);
 
         this._touchVelocity = null;
@@ -247,20 +247,20 @@ define(function(require, exports, module) {
         }.bind(this));
 
         this._layout.on('onEdge', function(event) {
-            console.log('$ON_EDGE Edge: ' + event.edge);
+            // console.log('$ON_EDGE Edge: ' + event.edge);
             _handleEdge.call(this, event);
             this._eventOutput.emit('onEdge', event);
         }.bind(this));
 
         this._layout.on('offEdge', function(event) {
-            console.log('$OFF_EDGE');
+            // console.log('$OFF_EDGE');
             _handleEdge.call(this, event);
             this._eventOutput.emit('offEdge', event);
         }.bind(this));
 
         this._particle.on('update', function(particle) {
             Engine.nextTick(function() {
-                console.log('$NORMALIZE_UPDATE');
+                // console.log('$NORMALIZE_UPDATE');
                 _normalizeState.call(this, false);
             }.bind(this));
         }.bind(this));
@@ -268,13 +268,13 @@ define(function(require, exports, module) {
         this._particle.on('end', function() {
             // This could be dangerous...
             // We could have a situation where the spring was attached once, settled and then attached again
-            console.error('$SETTLE Touch: ' + this._touchMove + ' Edge: ' + this._edgeState);
+            // console.error('$SETTLE Touch: ' + this._touchMove + ' Edge: ' + this._edgeState);
             if (this._attachSpring) {
                 if (!this._touchMove && this._edgeState !== ScrollEdgeStates.NONE) {
                     Engine.nextTick(function () {
-                        console.log('$REMOVE_AGENTS - SETTLE(t) Spring: ' + true + ' Drag: ' + true);
+                        // console.log('$REMOVE_AGENTS - SETTLE(t) Spring: ' + true + ' Drag: ' + true);
                         _detachAgents.call(this, true, true);
-                        console.log('$ATTACH_AGENTS - SETTLE Spring: ' + true + ' Drag: ' + false);
+                        // console.log('$ATTACH_AGENTS - SETTLE Spring: ' + true + ' Drag: ' + false);
                         _attachAgents.call(this, true, false);
                         this._attachSpring = false;
                     }.bind(this));
@@ -283,7 +283,7 @@ define(function(require, exports, module) {
             else {
                 Engine.nextTick(function () {
                     if (!this._touchMove) {
-                        console.log('$REMOVE_AGENTS - SETTLE(f) Spring: ' + true + ' Drag: ' + true);
+                        // console.log('$REMOVE_AGENTS - SETTLE(f) Spring: ' + true + ' Drag: ' + true);
                         _detachAgents.call(this, true, true);
                     }
                 }.bind(this));
@@ -327,7 +327,7 @@ define(function(require, exports, module) {
             this._scale = this.options.scale;
 
             if (this._springAttached) {
-                console.log('$REMOVE_AGENTS - Edge Spring: ' + true + ' Drag: ' + false);
+                // console.log('$REMOVE_AGENTS - Edge Spring: ' + true + ' Drag: ' + false);
                 _detachAgents.call(this, true, false);
             }
         }
@@ -352,12 +352,12 @@ define(function(require, exports, module) {
             }
 
             if (!this._springAttached && !this._touchMove) {
-                console.log('$ATTACH_AGENTS - Edge Spring: ' + true + ' Drag: ' + false);
+                // console.log('$ATTACH_AGENTS - Edge Spring: ' + true + ' Drag: ' + false);
                 _attachAgents.call(this, true, false);
             }
 
             if (options) {
-                console.log('$SET_SPRING Anchor: ' + options.anchor);
+                // console.log('$SET_SPRING Anchor: ' + options.anchor);
                 this.spring.setOptions(options);
             }
         }
@@ -388,13 +388,13 @@ define(function(require, exports, module) {
     }
 
     function _shiftOrigin(node, offset) {
-        console.log('$REMOVE_AGENTS Shift Spring: true Drag: true');
+        // console.log('$REMOVE_AGENTS Shift Spring: true Drag: true');
         var velocity = _getVelocity.call(this);
         var spring = this._springAgent >= 0;
         _detachAgents.call(this, true, true);
         _setPosition.call(this, _getPosition.call(this) + offset);
         if (!this._touchMove) {
-            console.log('$ATTACH_AGENTS Shift Spring: ' + spring + ' Drag: ' + true);
+            // console.log('$ATTACH_AGENTS Shift Spring: ' + spring + ' Drag: ' + true);
             _attachAgents.call(this, spring, true);
             _setVelocity.call(this, velocity);
         }
@@ -485,31 +485,33 @@ define(function(require, exports, module) {
         return this._layout;
     };
 
-    ScrollView.prototype.setLayout = function setLayout(layout, options) {
-        if (options) this.setOptions({layout: options});
-
-        if (layout instanceof Function) this._layout = new layout(this.options.layout);
-        else {
-            this._layout = layout;
-            this._layout.setOptions(this.options.layout);
+    ScrollView.prototype.setLayout = function setLayout(Layout, options) {
+        if (options) {
+            this.setOptions({layoutOptions: options});
+        }
+        if (Layout instanceof Function) {
+            this._layout = new Layout(this.options.layoutOptions);
+        } else {
+            this._layout = Layout;
+            this._layout.setOptions(this.options.layoutOptions);
         }
     };
 
     ScrollView.prototype.setOptions = function setOptions(options) {
         if (!options) return;
 
-        options.layout = options.layout || {};
+        options.layoutOptions = options.layoutOptions || {};
 
-        if (options.direction === 'x') options.direction = Utility.Direction.X;
+        if (options.direction === 'x' || options.direction === Utility.Direction.X) options.direction = Utility.Direction.X;
         else options.direction = Utility.Direction.Y;
 
-        options.layout.direction = options.direction;
+        options.layoutOptions.direction = options.direction;
 
         // patch custom options
         this._optionsManager.setOptions(options);
 
-        // layout sub-component
-        if (options.layout && this._layout) this._layout.setOptions(this.options.layout);
+        // layoutOptions sub-component
+        if (options.layoutOptions && this._layout) this._layout.setOptions(this.options.layoutOptions);
 
         // physics sub-components
         if (options.drag !== undefined && this.drag) this.drag.setOptions({strength: this.options.drag});

@@ -72,8 +72,8 @@ define(function(require, exports, module) {
     FocusPagedLayout.prototype.getNormalizedPosition = function getNormalizedPosition(node, position, velocity, clipSize) {
         var normalized;
 
-        if (window.$prenormalized && velocity !== 0)
-            console.log('Normalize - Node: ' + node.getIndex() + ' Position: ' + position + ' Velocity: ' + velocity + ' Clip: ' + clipSize);
+        // if (window.$prenormalized && velocity !== 0)
+        //     console.log('Normalize - Node: ' + node.getIndex() + ' Position: ' + position + ' Velocity: ' + velocity + ' Clip: ' + clipSize);
 
         var size = _sizeForDir.call(this, clipSize);
 
@@ -104,8 +104,8 @@ define(function(require, exports, module) {
             if (normalized) size = -size;
         }
 
-        if (normalized) console.log('$NORMALIZED - Old: ' + node.getIndex() + ' New: ' + normalized.getIndex()
-            + ' Position: ' + position + ' Velocity: ' + velocity + ' Clip: ' + clipSize);
+        // if (normalized) console.log('$NORMALIZED - Old: ' + node.getIndex() + ' New: ' + normalized.getIndex()
+        //     + ' Position: ' + position + ' Velocity: ' + velocity + ' Clip: ' + clipSize);
         if (normalized) return {node: normalized, size: size};
     };
 
@@ -115,8 +115,8 @@ define(function(require, exports, module) {
 
     FocusPagedLayout.prototype.renderLayout = function renderLayout(node, position, velocity, clipSize) {
         var result = [];
-        if (window.$render)
-            console.log('Render - Node: ' + node.getIndex() + ' Position: ' + position + ' Velocity: ' + velocity + ' Clip: ' + clipSize);
+        // if (window.$render)
+        //     console.log('Render - Node: ' + node.getIndex() + ' Position: ' + position + ' Velocity: ' + velocity + ' Clip: ' + clipSize);
 
         // focus components
         var prevFocus = this.currFocus;

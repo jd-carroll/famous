@@ -62,14 +62,14 @@ define(function(require, exports, module) {
     });
 
     var mod2 = new Modifier({
-        transform: Transform.rotateX(0.2)
+        // transform: Transform.rotateX(0.2)
     });
 
     Transitionable.registerMethod('snap', SnapTransition);
     var transition = {
         method: "snap",
-        period: 1000,
-        dampingRatio: .3,
+        period: 500,
+        dampingRatio: .55,
         velocity: 0
     };
 
