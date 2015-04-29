@@ -44,7 +44,8 @@ define(function(require, exports, module) {
 
         if (f.isZero()) return;
 
-        v.add(f.mult(dt * w)).put(v);
+        body.velocityDelta = f.mult(dt * w);
+        v.add(body.velocityDelta).put(v);
         f.clear();
     };
 
@@ -60,7 +61,8 @@ define(function(require, exports, module) {
         var p = body.position;
         var v = body.velocity;
 
-        p.add(v.mult(dt)).put(p);
+        body.positionDelta = v.mult(dt);
+        p.add(body.positionDelta).put(p);
     };
 
     /*
@@ -77,7 +79,8 @@ define(function(require, exports, module) {
 
         if (t.isZero()) return;
 
-        L.add(t.mult(dt)).put(L);
+        body.angularDelta = t.mult(dt);
+        L.add(body.angularDelta).put(L);
         t.clear();
     };
 
@@ -94,8 +97,10 @@ define(function(require, exports, module) {
         var w = body.angularVelocity;
 
         if (w.isZero()) return;
-        q.add(q.multiply(w).scalarMultiply(0.5 * dt)).put(q);
-//        q.normalize.put(q);
+
+        body.orientationDelta = q.multiply(w).scalarMultiply(0.5 * dt);
+        q.add(body.orientationDelta).put(q);
+        // q.normalize.put(q);
     };
 
     module.exports = SymplecticEuler;
